@@ -167,4 +167,9 @@ class InstagramWeb
     {
         return $this->httpClient->post("/web/friendships/${userId}/unblock/");
     }
+
+    public function like($mediaId)
+    {
+        return $this->httpClient->post("/web/likes/${mediaId}/like/");
+    }
 }
