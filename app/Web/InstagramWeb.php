@@ -69,7 +69,7 @@ class InstagramWeb
 
     public function getUserByUsername($username)
     {
-        return $this->httpClient->get("/{$username}/?__a=1");
+        return $this->httpClient->get("/${username}/?__a=1");
     }
 
     public function getActivity()
@@ -79,7 +79,7 @@ class InstagramWeb
 
     public function getMediaFeedByHashtag($hashtag)
     {
-        return $this->httpClient->get("/explore/tags/{$hashtag}/?__a=1");
+        return $this->httpClient->get("/explore/tags/${hashtag}/?__a=1");
     }
 
     public function getProfile()
@@ -111,5 +111,10 @@ class InstagramWeb
             [
                 'form_params' => ['profile_pic' => $url]
             ]);
+    }
+
+    public function deleteMedia($mediaId)
+    {
+        return $this->httpClient->post("/create/${mediaId}/delete/");
     }
 }
