@@ -132,4 +132,9 @@ class InstagramWeb
     {
         return $this->httpClient->post("/web/comments/${mediaId}/add/", ['form_params' => ['comment_text' => $text]]);
     }
+
+    public function deleteComment($mediaId, $commentId)
+    {
+        return $this->httpClient->post("/web/comments/${mediaId}/delete/${commentId}/");
+    }
 }
