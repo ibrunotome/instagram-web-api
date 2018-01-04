@@ -172,4 +172,9 @@ class InstagramWeb
     {
         return $this->httpClient->post("/web/likes/${mediaId}/like/");
     }
+
+    public function unlike($mediaId)
+    {
+        return $this->httpClient->post("/web/likes/${mediaId}/unlike/");
+    }
 }
