@@ -77,11 +77,6 @@ class InstagramWeb
         return $this->httpClient->get('/accounts/activity/?__a=1');
     }
 
-    public function getMediaFeedByHashtag($hashtag)
-    {
-        return $this->httpClient->get("/explore/tags/${hashtag}/?__a=1");
-    }
-
     public function getProfile()
     {
         return $this->httpClient->get('/accounts/edit/?__a=1');
@@ -116,5 +111,15 @@ class InstagramWeb
     public function deleteMedia($mediaId)
     {
         return $this->httpClient->post("/create/${mediaId}/delete/");
+    }
+
+    public function getMediaFeedByLocation($locationId)
+    {
+        return $this->httpClient->get("/explore/locations/${locationId}/?__a=1");
+    }
+
+    public function getMediaFeedByHashtag($hashtag)
+    {
+        return $this->httpClient->get("/explore/tags/${hashtag}/?__a=1");
     }
 }
