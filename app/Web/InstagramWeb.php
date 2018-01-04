@@ -147,4 +147,9 @@ class InstagramWeb
     {
         return $this->httpClient->post("/web/friendships/${userId}/ignore/");
     }
+
+    public function follow($userId)
+    {
+        return $this->httpClient->post("/web/friendships/${userId}/follow/");
+    }
 }
