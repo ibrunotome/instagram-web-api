@@ -81,4 +81,9 @@ class InstagramWeb
     {
         return $this->httpClient->get("/explore/tags/{$hashtag}/?__a=1");
     }
+
+    public function getProfile()
+    {
+        return $this->httpClient->get('/accounts/edit/?__a=1');
+    }
 }
