@@ -71,4 +71,9 @@ class InstagramWeb
     {
         return $this->httpClient->get('/accounts/activity/?__a=1');
     }
+
+    public function getMediaFeedByHashtag($hashtag)
+    {
+        return $this->httpClient->get("/explore/tags/{$hashtag}/?__a=1");
+    }
 }
