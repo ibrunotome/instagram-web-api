@@ -66,4 +66,9 @@ class InstagramWeb
     {
         return $this->httpClient->get('/?__a=1');
     }
+
+    public function getActivity()
+    {
+        return $this->httpClient->get('/accounts/activity/?__a=1');
+    }
 }
