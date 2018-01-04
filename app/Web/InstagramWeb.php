@@ -104,4 +104,12 @@ class InstagramWeb
 
         return $this->httpClient->post('/accounts/edit/', ['form_params' => $data]);
     }
+
+    public function changeProfilePhoto($url)
+    {
+        return $this->httpClient->post('/accounts/web_change_profile_picture/',
+            [
+                'form_params' => ['profile_pic' => $url]
+            ]);
+    }
 }
