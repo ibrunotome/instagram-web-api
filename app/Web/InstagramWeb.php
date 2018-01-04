@@ -18,13 +18,13 @@ class InstagramWeb
 
         $this->headers = [
             'Accept-Language'  => 'en-US,en;q=0.9',
-            'content-length'   => 0,
-            'content-type'     => 'application/x-www-form-urlencoded',
-            'origin'           => 'https://www.instagram.com',
+            'Content-Length'   => 0,
+            'Content-Type'     => 'application/x-www-form-urlencoded',
+            'Origin'           => 'https://www.instagram.com',
             'Referer'          => 'https://www.instagram.com/',
             'User-Agent'       => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36',
             'X-CSRFToken'      => '',
-            'X-Instagram-AJAS' => 1,
+            'X-Instagram-AJAX' => 1,
         ];
 
         $this->httpClient = new Client([
@@ -39,7 +39,9 @@ class InstagramWeb
         $csrftoken = $response->getHeaders()['Set-Cookie'][1];
         $csrftoken = explode('=', $csrftoken)[1];
         $csrftoken = explode(';', $csrftoken)[0];
-        $this->headers['accept'] = '*/*';
+
+        $this->headers['Accept'] = '*/*';
+        $this->headers['X-CSRFToken'] = $csrftoken;
 
         try {
             $response = $this->httpClient->post('/accounts/login/ajax/', [
@@ -52,7 +54,12 @@ class InstagramWeb
 
             var_dump($response);
         } catch (\Exception $exception) {
-            var_dump($exception);
+            echo $exception->getMessage();
         }
+    }
+
+    public function logout()
+    {
+        $this->httpClient->get('/accounts/logout/ajax/');
     }
 }
