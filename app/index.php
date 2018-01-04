@@ -7,6 +7,6 @@ $data = [
     'password' => ''
 ];
 
-$instagram = new \App\Web\InstagramWeb($data);
+$instagram = new \App\Web\Instagram($data);
 
-$instagram->login();
+$instagram->account->login();

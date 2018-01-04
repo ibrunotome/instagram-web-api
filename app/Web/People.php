@@ -2,7 +2,7 @@
 
 namespace App\Web;
 
-class People extends InstagramWeb
+class People extends Instagram
 {
     public function followApprove($userId)
     {

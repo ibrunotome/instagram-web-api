@@ -2,7 +2,7 @@
 
 namespace App\Web;
 
-class Media extends InstagramWeb
+class Media extends Instagram
 {
     public function comment($mediaId, $text)
     {
