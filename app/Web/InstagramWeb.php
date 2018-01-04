@@ -162,4 +162,9 @@ class InstagramWeb
     {
         return $this->httpClient->post("/web/friendships/${userId}/block/");
     }
+
+    public function unblock($userId)
+    {
+        return $this->httpClient->post("/web/friendships/${userId}/unblock/");
+    }
 }
