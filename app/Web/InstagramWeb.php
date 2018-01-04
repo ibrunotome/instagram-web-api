@@ -10,7 +10,12 @@ class InstagramWeb
 
     private $data;
     private $headers;
-    private $httpClient;
+    protected $instagram;
+
+    /**
+     * @var Media;
+     */
+    public $media;
 
     public function __construct(array $data)
     {
@@ -27,7 +32,7 @@ class InstagramWeb
             'X-Instagram-AJAX' => 1,
         ];
 
-        $this->httpClient = new Client([
+        $this->instagram = new Client([
             'headers'  => $this->headers,
             'base_uri' => self::BASE_URL
         ]);
@@ -35,7 +40,7 @@ class InstagramWeb
 
     public function login()
     {
-        $response = $this->httpClient->get('/');
+        $response = $this->instagram->get('/');
         $csrftoken = $response->getHeaders()['Set-Cookie'][1];
         $csrftoken = explode('=', $csrftoken)[1];
         $csrftoken = explode(';', $csrftoken)[0];
@@ -44,7 +49,7 @@ class InstagramWeb
         $this->headers['X-CSRFToken'] = $csrftoken;
 
         try {
-            $response = $this->httpClient->post('/accounts/login/ajax/', [
+            $response = $this->instagram->post('/accounts/login/ajax/', [
                 'form_params' => [
                     'username' => $this->data['username'],
                     'password' => $this->data['password'],
@@ -59,27 +64,27 @@ class InstagramWeb
 
     public function logout()
     {
-        $this->httpClient->get('/accounts/logout/ajax/');
+        $this->instagram->get('/accounts/logout/ajax/');
     }
 
     public function getHome()
     {
-        return $this->httpClient->get('/?__a=1');
+        return $this->instagram->get('/?__a=1');
     }
 
     public function getUserByUsername($username)
     {
-        return $this->httpClient->get("/${username}/?__a=1");
+        return $this->instagram->get("/${username}/?__a=1");
     }
 
     public function getActivity()
     {
-        return $this->httpClient->get('/accounts/activity/?__a=1');
+        return $this->instagram->get('/accounts/activity/?__a=1');
     }
 
     public function getProfile()
     {
-        return $this->httpClient->get('/accounts/edit/?__a=1');
+        return $this->instagram->get('/accounts/edit/?__a=1');
     }
 
     public function updateProfile(array $data)
@@ -97,89 +102,59 @@ class InstagramWeb
 
         $data = array_intersect_key($data, $acceptValues);
 
-        return $this->httpClient->post('/accounts/edit/', ['form_params' => $data]);
+        return $this->instagram->post('/accounts/edit/', ['form_params' => $data]);
     }
 
     public function changeProfilePhoto($url)
     {
-        return $this->httpClient->post('/accounts/web_change_profile_picture/',
+        return $this->instagram->post('/accounts/web_change_profile_picture/',
             [
                 'form_params' => ['profile_pic' => $url]
             ]);
     }
 
-    public function deleteMedia($mediaId)
+    public function getFeedByLocation($locationId)
     {
-        return $this->httpClient->post("/create/${mediaId}/delete/");
+        return $this->instagram->get("/explore/locations/${locationId}/?__a=1");
     }
 
-    public function getMediaFeedByLocation($locationId)
+    public function getFeedByHashtag($hashtag)
     {
-        return $this->httpClient->get("/explore/locations/${locationId}/?__a=1");
-    }
-
-    public function getMediaFeedByHashtag($hashtag)
-    {
-        return $this->httpClient->get("/explore/tags/${hashtag}/?__a=1");
-    }
-
-    public function getMediaByShortcode($shortcode)
-    {
-        return $this->httpClient->get("/p/${shortcode}/?__a=1");
-    }
-
-    public function comment($mediaId, $text)
-    {
-        return $this->httpClient->post("/web/comments/${mediaId}/add/", ['form_params' => ['comment_text' => $text]]);
-    }
-
-    public function deleteComment($mediaId, $commentId)
-    {
-        return $this->httpClient->post("/web/comments/${mediaId}/delete/${commentId}/");
+        return $this->instagram->get("/explore/tags/${hashtag}/?__a=1");
     }
 
     public function followApprove($userId)
     {
-        return $this->httpClient->post("/web/friendships/${userId}/approve/");
+        return $this->instagram->post("/web/friendships/${userId}/approve/");
     }
 
     public function followIgnore($userId)
     {
-        return $this->httpClient->post("/web/friendships/${userId}/ignore/");
+        return $this->instagram->post("/web/friendships/${userId}/ignore/");
     }
 
     public function follow($userId)
     {
-        return $this->httpClient->post("/web/friendships/${userId}/follow/");
+        return $this->instagram->post("/web/friendships/${userId}/follow/");
     }
 
     public function unfollow($userId)
     {
-        return $this->httpClient->post("/web/friendships/${userId}/unfollow/");
+        return $this->instagram->post("/web/friendships/${userId}/unfollow/");
     }
 
     public function block($userId)
     {
-        return $this->httpClient->post("/web/friendships/${userId}/block/");
+        return $this->instagram->post("/web/friendships/${userId}/block/");
     }
 
     public function unblock($userId)
     {
-        return $this->httpClient->post("/web/friendships/${userId}/unblock/");
-    }
-
-    public function like($mediaId)
-    {
-        return $this->httpClient->post("/web/likes/${mediaId}/like/");
-    }
-
-    public function unlike($mediaId)
-    {
-        return $this->httpClient->post("/web/likes/${mediaId}/unlike/");
+        return $this->instagram->post("/web/friendships/${userId}/unblock/");
     }
 
     public function search($query)
     {
-        return $this->httpClient->get("/web/search/topsearch/?context=blended&query=${query}");
+        return $this->instagram->get("/web/search/topsearch/?context=blended&query=${query}");
     }
 }
