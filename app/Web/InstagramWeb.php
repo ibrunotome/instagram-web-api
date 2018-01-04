@@ -152,4 +152,9 @@ class InstagramWeb
     {
         return $this->httpClient->post("/web/friendships/${userId}/follow/");
     }
+
+    public function unfollow($userId)
+    {
+        return $this->httpClient->post("/web/friendships/${userId}/unfollow/");
+    }
 }
