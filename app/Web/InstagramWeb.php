@@ -86,4 +86,22 @@ class InstagramWeb
     {
         return $this->httpClient->get('/accounts/edit/?__a=1');
     }
+
+    public function updateProfile(array $data)
+    {
+        $acceptValues = [
+            'first_name'       => '',
+            'email'            => '',
+            'username'         => '',
+            'phone_number'     => '',
+            'gender'           => '',
+            'biography'        => '',
+            'external_url'     => '',
+            'chaining_enabled' => ''
+        ];
+
+        $data = array_intersect_key($data, $acceptValues);
+
+        return $this->httpClient->post('/accounts/edit/', ['form_params' => $data]);
+    }
 }
