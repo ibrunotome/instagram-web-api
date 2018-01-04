@@ -122,4 +122,14 @@ class InstagramWeb
     {
         return $this->httpClient->get("/explore/tags/${hashtag}/?__a=1");
     }
+
+    public function getMediaByShortcode($shortcode)
+    {
+        return $this->httpClient->get("/p/${shortcode}/?__a=1");
+    }
+
+    public function comment($mediaId, $text)
+    {
+        return $this->httpClient->post("/web/comments/${mediaId}/add/", ['form_params' => ['comment_text' => $text]]);
+    }
 }
