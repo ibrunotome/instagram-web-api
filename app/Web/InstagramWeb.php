@@ -45,7 +45,6 @@ class InstagramWeb
 
         try {
             $response = $this->httpClient->post('/accounts/login/ajax/', [
-                'headers'     => $this->headers,
                 'form_params' => [
                     'username' => $this->data['username'],
                     'password' => $this->data['password'],
@@ -61,5 +60,10 @@ class InstagramWeb
     public function logout()
     {
         $this->httpClient->get('/accounts/logout/ajax/');
+    }
+
+    public function getHome()
+    {
+        return $this->httpClient->get('/?__a=1');
     }
 }
