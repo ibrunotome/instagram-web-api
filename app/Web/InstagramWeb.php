@@ -177,4 +177,9 @@ class InstagramWeb
     {
         return $this->httpClient->post("/web/likes/${mediaId}/unlike/");
     }
+
+    public function search($query)
+    {
+        return $this->httpClient->get("/web/search/topsearch/?context=blended&query=${query}");
+    }
 }
