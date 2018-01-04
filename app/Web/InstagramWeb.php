@@ -137,4 +137,9 @@ class InstagramWeb
     {
         return $this->httpClient->post("/web/comments/${mediaId}/delete/${commentId}/");
     }
+
+    public function followApprove($userId)
+    {
+        return $this->httpClient->post("/web/friendships/${userId}/approve/");
+    }
 }
