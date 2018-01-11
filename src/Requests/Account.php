@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Web;
+namespace InstagramWeb\Requests;
 
 class Account extends Instagram
 {
-    public function login()
+    public function login(array $data)
     {
         $response = $this->instagram->get('/');
         $csrftoken = $response->getHeaders()['Set-Cookie'][1];
@@ -16,8 +16,8 @@ class Account extends Instagram
 
         return $this->instagram->post('/accounts/login/ajax/', [
             'form_params' => [
-                'username' => $this->data['username'],
-                'password' => $this->data['password'],
+                'username' => $data['username'],
+                'password' => $data['password'],
             ],
         ]);
     }

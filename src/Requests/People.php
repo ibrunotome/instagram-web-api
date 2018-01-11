@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Web;
+namespace InstagramWeb\Requests;
 
 class People extends Instagram
 {
@@ -32,5 +32,10 @@ class People extends Instagram
     public function unblock($userId)
     {
         return $this->instagram->post("/web/friendships/${userId}/unblock/");
+    }
+
+    public function getUserByUsername($username)
+    {
+        return $this->instagram->get("/${username}/?__a=1");
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Web;
+namespace InstagramWeb\Requests;
 
 class Media extends Instagram
 {
