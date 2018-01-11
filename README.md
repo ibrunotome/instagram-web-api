@@ -1,7 +1,7 @@
 # Instagram Web Api
 
 ## en
-This was made with studies porposes, catching the requests from Google Chrome inspector. There as so many improves to 
+This was made with studies purposes, catching the requests from Google Chrome inspector. There as so many improves to 
 implement, you can see all of them on issues tab. Feel free to make a PR.
 
 ## pt_BR
